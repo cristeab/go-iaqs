@@ -1,275 +1,265 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<title>IAQ Score Mockup</title>
-<style>
-  :root {
-    /* 0 = far left (GOOD), 1 = far right (UNHEALTHY) */
-    --indicator-position: 0.25;
-  }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GO IAQS Score</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-  body {
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    background: #f5f7fb;
-    margin: 0;
-    padding: 40px 0;
-    text-align: center;
-  }
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
 
-  .container {
-    max-width: 480px;
-    margin: 0 auto;
-  }
+        .container {
+            background: white;
+            border-radius: 30px;
+            padding: 60px 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 600px;
+            width: 100%;
+        }
 
-  /* Gauge */
+        .gauge-container {
+            position: relative;
+            width: 300px;
+            height: 150px;
+            margin: 0 auto 30px;
+        }
 
-  .gauge-wrapper {
-    position: relative;
-    width: 260px;
-    height: 130px;
-    margin: 0 auto 24px;
-  }
+        .gauge-svg {
+            width: 100%;
+            height: 100%;
+        }
 
-  .gauge-arc {
-    width: 100%;
-    height: 100%;
-    border-radius: 260px 260px 0 0;
-    background: conic-gradient(
-      from 180deg,
-      #4caf50 0deg 60deg,     /* GOOD */
-      #ffc107 60deg 120deg,   /* MODERATE */
-      #f44336 120deg 180deg   /* UNHEALTHY */
-    );
-    mask: radial-gradient(circle at 50% 100%, transparent 60%, black 61%);
-  }
+        .needle {
+            transition: transform 0.5s ease-out;
+            transform-origin: 150px 145px;
+        }
 
-  .gauge-labels {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 90%;
-    transform: translate(-50%, -10%);
-    display: flex;
-    justify-content: space-between;
-    font-size: 12px;
-    font-weight: 600;
-    color: #34425a;
-  }
+        .title {
+            text-align: center;
+            margin-bottom: 10px;
+        }
 
-  .gauge-indicator {
-    position: absolute;
-    width: 16px;
-    height: 16px;
-    border-radius: 50%;
-    background: #1a2dff;
-    border: 3px solid white;
-    box-shadow: 0 0 6px rgba(0,0,0,0.18);
-    left: calc(50% - 8px);
-    bottom: -8px;
-    transform-origin: 50% 130px;
-    transform: rotate(calc(-90deg + 180deg * var(--indicator-position)));
-  }
+        .title-main {
+            font-size: 14px;
+            color: #333;
+            letter-spacing: 1px;
+            font-weight: normal;
+        }
 
-  .score-title {
-    margin-top: 10px;
-    font-size: 18px;
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    color: #253557;
-  }
+        .title-score {
+            font-size: 32px;
+            font-weight: bold;
+            color: #333;
+            letter-spacing: 2px;
+        }
 
-  .score-title span {
-    font-weight: 400;
-  }
+        .main-text {
+            text-align: center;
+            font-size: 72px;
+            font-weight: bold;
+            color: #a8b5c8;
+            letter-spacing: -2px;
+            line-height: 1;
+            margin: 20px 0;
+        }
 
-  /* Big text behind device */
+        .sensor-container {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            margin: 40px auto;
+        }
 
-  .big-text {
-    font-size: 48px;
-    font-weight: 800;
-    letter-spacing: 0.08em;
-    line-height: 1;
-    color: #cdd7ff;
-    text-transform: uppercase;
-    margin: 40px 0 24px;
-  }
+        .sensor-diamond {
+            width: 200px;
+            height: 200px;
+            background: linear-gradient(135deg, #5b8fff 0%, #4a7aef 100%);
+            transform: rotate(45deg);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            position: relative;
+        }
 
-  /* Device */
+        .sensor-inner {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-45deg);
+            text-align: center;
+            color: white;
+        }
 
-  .device-wrapper {
-    position: relative;
-    width: 200px;
-    margin: 0 auto 40px;
-  }
+        .globe-icon {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
 
-  .diamond {
-    width: 140px;
-    height: 140px;
-    margin: 0 auto;
-    background: #3f7cff;
-    transform: rotate(45deg);
-    border-radius: 18px;
-    position: relative;
-    box-shadow: 0 26px 40px rgba(0,0,0,0.26);
-  }
+        .sensor-circle {
+            width: 120px;
+            height: 120px;
+            background: radial-gradient(circle, #2a2a2a 0%, #000000 100%);
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto;
+            border: 3px solid #666;
+        }
 
-  .diamond::before {
-    /* top “logo” area */
-    content: "";
-    position: absolute;
-    top: 14px;
-    left: 50%;
-    width: 26px;
-    height: 26px;
-    transform: translateX(-50%) rotate(-45deg);
-    border-radius: 50%;
-    border: 2px solid #ffffff;
-  }
+        .sensor-value {
+            font-size: 16px;
+            font-weight: bold;
+            margin: 5px 0;
+        }
 
-  .screen {
-    position: absolute;
-    width: 88px;
-    height: 88px;
-    border-radius: 50%;
-    background: #111827;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) rotate(-45deg);
-    color: #ffffff;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-size: 11px;
-  }
+        .sensor-label {
+            font-size: 12px;
+            opacity: 0.9;
+        }
 
-  .screen .line {
-    margin: 2px 0;
-    text-align: center;
-  }
+        .subtitle {
+            text-align: center;
+            font-size: 64px;
+            font-weight: bold;
+            color: #a8b5c8;
+            letter-spacing: -1px;
+            margin: 20px 0;
+        }
 
-  .screen .label {
-    opacity: 0.85;
-  }
+        .footer-badge {
+            background: #4a7aef;
+            color: white;
+            padding: 12px 30px;
+            border-radius: 10px;
+            text-align: center;
+            margin: 30px auto 0;
+            width: fit-content;
+            font-weight: bold;
+            box-shadow: 0 5px 15px rgba(74, 122, 239, 0.4);
+        }
 
-  .screen .value {
-    font-weight: 600;
-    font-size: 12px;
-  }
+        .footer-icon {
+            font-size: 20px;
+            margin-right: 8px;
+        }
 
-  .screen .unit {
-    font-size: 10px;
-    opacity: 0.75;
-  }
+        .footer-text {
+            font-size: 18px;
+            letter-spacing: 1px;
+        }
 
-  /* Bottom badge */
 
-  .badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 8px 14px;
-    border-radius: 999px;
-    background: #1c3fff;
-    color: #ffffff;
-    font-size: 11px;
-    font-weight: 500;
-  }
-
-  .badge-icon {
-    width: 16px;
-    height: 16px;
-    border-radius: 50%;
-    border: 2px solid #ffffff;
-  }
-</style>
+    </style>
 </head>
 <body>
+    <div class="container">
+        <div class="gauge-container">
+            <svg class="gauge-svg" viewBox="0 0 300 200">
 
-<div class="container">
+                <!-- UNHEALTHY (0° to 60°) -->
+                <path d="M 250 145 
+                        A 100 100 0 0 0 200.00 58.397"
+                    fill="none" stroke="#ff4444" stroke-width="28"/>
 
-  <!-- Gauge -->
-  <div class="gauge-wrapper">
-    <div class="gauge-arc"></div>
-    <div class="gauge-indicator"></div>
-    <div class="gauge-labels">
-      <span>GOOD</span>
-      <span>MODERATE</span>
-      <span>UNHEALTHY</span>
-    </div>
-  </div>
+                <!-- MODERATE (60° to 120°) -->
+                <path d="M 200.00 58.397 
+                        A 100 100 0 0 0 100.00 58.397"
+                    fill="none" stroke="#ffaa00" stroke-width="28"/>
 
-  <div class="score-title">
-    GO IAQS <span>SCORE</span>
-  </div>
+                <!-- GOOD (120° to 180°) -->
+                <path d="M 100.00 58.397 
+                        A 100 100 0 0 0 50 145"
+                    fill="none" stroke="#4a7aef" stroke-width="28"/>
 
-  <!-- Large background text -->
-  <div class="big-text">
-    COMMON IAQ<br/>
-    LANGUAGE
-  </div>
+                <!-- Labels -->
+                <text x="260" y="110" fill="#666" font-size="12" font-weight="bold">UNHEALTHY</text>
+                <text x="150" y="35"  fill="#666" font-size="12" font-weight="bold" text-anchor="middle">MODERATE</text>
+                <text x="40"  y="110" fill="#666" font-size="12" font-weight="bold" text-anchor="end">GOOD</text>
 
-  <!-- Device -->
-  <div class="device-wrapper">
-    <div class="diamond">
-      <div class="screen">
-        <!-- CO2 line -->
-        <div class="line">
-          <span class="label">CO&#8322;</span><br/>
-          <span class="value" id="co2-value">750</span>
-          <span class="unit">ppm</span>
+                <!-- Center circle -->
+                <circle cx="150" cy="145" r="15" fill="white" stroke="#333" stroke-width="3"/>
+                <circle cx="150" cy="145" r="8" fill="#333"/>
+
+                <!-- Needle -->
+                <g class="needle" id="needle">
+                    <line x1="150" y1="145" x2="150" y2="65" 
+                        stroke="#333" stroke-width="4" stroke-linecap="round"/>
+                </g>
+            </svg>
         </div>
-        <!-- separator -->
-        <div class="line">—</div>
-        <!-- PM2.5 line -->
-        <div class="line">
-          <span class="label">PM&#8322;&#x002C;&#8325;</span><br/>
-          <span class="value" id="pm25-value">5</span>
-          <span class="unit">&#181;g/m&#179;</span>
+
+        <div class="title">
+            <div class="title-main">GO IAQS SCORE</div>
         </div>
-      </div>
+
+        <div class="main-text">COMMON IAQ</div>
+
+        <div class="sensor-container">
+            <div class="sensor-diamond">
+                <div class="sensor-inner">
+                    <div class="globe-icon">🌐</div>
+                    <div class="sensor-circle">
+                        <div class="sensor-value" id="co2-value">CO₂<br>750 ppm</div>
+                        <div style="height: 10px;"></div>
+                        <div class="sensor-value" id="pm-value">PM₂.₅<br>5 μg/m³</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="subtitle">LANGUAGE</div>
+
+        <div class="footer-badge">
+            <span class="footer-icon">🌐</span>
+            <span class="footer-text">Aligns with GO AQS</span>
+        </div>
     </div>
-  </div>
 
-  <!-- Bottom badge -->
-  <div class="badge">
-    <div class="badge-icon"></div>
-    <span>Aligns with GO AQS</span>
-  </div>
+    <script>
+        const needle = document.getElementById('needle');
+        const co2Display = document.getElementById('co2-value');
+        const pmDisplay = document.getElementById('pm-value');
 
-</div>
+        // Function to set gauge position (0-180 degrees)
+        function setGaugePosition(angle) {
+            if (angle < 0) angle = 0;
+            if (angle > 180) angle = 180;
+            needle.style.transform = `rotate(${angle}deg)`;
+        }
 
-<script>
-  // Helper functions to change indicator position and values
+        // Function to set CO2 value
+        function setCO2(value) {
+            co2Display.innerHTML = `CO₂<br>${value} ppm`;
+        }
 
-  /**
-   * pos: 0 (GOOD, left) to 1 (UNHEALTHY, right)
-   */
-  function setIndicatorPosition(pos) {
-    pos = Math.min(1, Math.max(0, pos));
-    document.documentElement.style.setProperty("--indicator-position", pos);
-  }
+        // Function to set PM2.5 value
+        function setPM25(value) {
+            pmDisplay.innerHTML = `PM₂.₅<br>${value} μg/m³`;
+        }
 
-  function setCO2Value(value, unit) {
-    document.getElementById("co2-value").textContent = value;
-    if (unit) {
-      document.querySelector("#co2-value + .unit").textContent = unit;
-    }
-  }
+        // Initialize with default values
+        setGaugePosition(60);
+        setCO2(750);
+        setPM25(5);
 
-  function setPM25Value(value, unit) {
-    document.getElementById("pm25-value").textContent = value;
-    if (unit) {
-      document.querySelector("#pm25-value + .unit").textContent = unit;
-    }
-  }
-
-  // Example usage:
-  // setIndicatorPosition(0.6);
-  // setCO2Value(900, "ppm");
-  // setPM25Value(12, "µg/m³");
-</script>
-
+        // Example usage - uncomment and modify to test:
+        // setTimeout(() => setGaugePosition(120), 2000);
+        // setTimeout(() => setCO2(1200), 2000);
+        // setTimeout(() => setPM25(35), 2000);
+    </script>
 </body>
 </html>
