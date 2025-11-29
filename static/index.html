@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
-<title>GO IAQS Score</title>
+<title>IAQ Score Mockup</title>
 <style>
   :root {
     /* 0 = far left (GOOD), 1 = far right (UNHEALTHY) */
@@ -31,19 +31,18 @@
     margin: 0 auto 24px;
   }
 
-.gauge-arc {
-  width: 100%;
-  height: 100%;
-  border-radius: 260px 260px 0 0;
-  /* semicircle built from a conic-gradient and then masked */
-  background: conic-gradient(
-    from 180deg,
-    #2563eb 0deg 60deg,     /* GOOD – blue */
-    #facc15 60deg 120deg,   /* MODERATE – yellow */
-    #ef4444 120deg 180deg   /* UNHEALTHY – red */
-  ); /* conic gradients let colors follow the arc around a circle [web:3][web:9] */
-  mask: radial-gradient(circle at 50% 100%, transparent 60%, black 61%);
-}
+  .gauge-arc {
+    width: 100%;
+    height: 100%;
+    border-radius: 260px 260px 0 0;
+    background: conic-gradient(
+      from 180deg,
+      #4caf50 0deg 60deg,     /* GOOD */
+      #ffc107 60deg 120deg,   /* MODERATE */
+      #f44336 120deg 180deg   /* UNHEALTHY */
+    );
+    mask: radial-gradient(circle at 50% 100%, transparent 60%, black 61%);
+  }
 
   .gauge-labels {
     position: absolute;
@@ -84,42 +83,24 @@
     font-weight: 400;
   }
 
-    .center-stack {
-    position: relative;
-    width: 100%;
-    max-width: 480px;
-    margin: 40px auto;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    }
-
   /* Big text behind device */
 
   .big-text {
-    position: absolute;
-    z-index: 0;                 /* behind the diamond */
-    font-size: 150px;            /* make it large */
+    font-size: 48px;
     font-weight: 800;
     letter-spacing: 0.08em;
-    line-height: 0.9;
-    color: #7681a5;
+    line-height: 1;
+    color: #cdd7ff;
     text-transform: uppercase;
-    text-align: center;
-    pointer-events: none;       /* click-through */
-    /* start from the true center… */
-    top: 50%;
-    left: 50%;
-    /* …then nudge slightly left and up */
-    transform: translate(-50%, -80%);
-    text-align: center;
+    margin: 40px 0 24px;
   }
 
   /* Device */
 
   .device-wrapper {
     position: relative;
-    z-index: 1;                 /* above the text */
+    width: 200px;
+    margin: 0 auto 40px;
   }
 
   .diamond {
@@ -185,9 +166,6 @@
   /* Bottom badge */
 
   .badge {
-    margin-top: 24px;        /* distance below diamond */
-    position: relative;
-    z-index: 1;              /* also above big-text */
     display: inline-flex;
     align-items: center;
     gap: 8px;
@@ -226,39 +204,39 @@
     GO IAQS <span>SCORE</span>
   </div>
 
-  <div class="center-stack"></div>
-        <!-- Large background text -->
-        <div class="big-text">
-            COMMON IAQ LANGUAGE
-        </div>
+  <!-- Large background text -->
+  <div class="big-text">
+    COMMON IAQ<br/>
+    LANGUAGE
+  </div>
 
-        <!-- Device -->
-        <div class="device-wrapper">
-            <div class="diamond">
-            <div class="screen">
-                <!-- CO2 line -->
-                <div class="line">
-                <span class="label">CO&#8322;</span><br/>
-                <span class="value" id="co2-value">750</span>
-                <span class="unit">ppm</span>
-                </div>
-                <!-- separator -->
-                <div class="line">—</div>
-                <!-- PM2.5 line -->
-                <div class="line">
-                <span class="label">PM&#8322;&#x002C;&#8325;</span><br/>
-                <span class="value" id="pm25-value">5</span>
-                <span class="unit">&#181;g/m&#179;</span>
-                </div>
-            </div>
-            </div>
+  <!-- Device -->
+  <div class="device-wrapper">
+    <div class="diamond">
+      <div class="screen">
+        <!-- CO2 line -->
+        <div class="line">
+          <span class="label">CO&#8322;</span><br/>
+          <span class="value" id="co2-value">750</span>
+          <span class="unit">ppm</span>
         </div>
-        <!-- Bottom badge -->
-        <div class="badge">
-            <div class="badge-icon"></div>
-            <span>Aligns with GO AQS</span>
+        <!-- separator -->
+        <div class="line">—</div>
+        <!-- PM2.5 line -->
+        <div class="line">
+          <span class="label">PM&#8322;&#x002C;&#8325;</span><br/>
+          <span class="value" id="pm25-value">5</span>
+          <span class="unit">&#181;g/m&#179;</span>
         </div>
+      </div>
     </div>
+  </div>
+
+  <!-- Bottom badge -->
+  <div class="badge">
+    <div class="badge-icon"></div>
+    <span>Aligns with GO AQS</span>
+  </div>
 
 </div>
 
@@ -288,9 +266,9 @@
   }
 
   // Example usage:
-  setIndicatorPosition(0.6);
-  setCO2Value(900, "ppm");
-  setPM25Value(12, "µg/m³");
+  // setIndicatorPosition(0.6);
+  // setCO2Value(900, "ppm");
+  // setPM25Value(12, "µg/m³");
 </script>
 
 </body>
