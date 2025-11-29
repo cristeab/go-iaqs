@@ -1,0 +1,5 @@
+fastapi
+uvicorn
+websockets
+influxdb3-python
+pandas

@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>GO IAQS Score</title>
+<style>
+  :root {
+    /* 0 = far left (GOOD), 1 = far right (UNHEALTHY) */
+    --indicator-position: 0.25;
+  }
+
+  body {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    background: #f5f7fb;
+    margin: 0;
+    padding: 40px 0;
+    text-align: center;
+  }
+
+  .container {
+    max-width: 480px;
+    margin: 0 auto;
+  }
+
+  /* Gauge */
+
+  .gauge-wrapper {
+    position: relative;
+    width: 260px;
+    height: 130px;
+    margin: 0 auto 24px;
+  }
+
+.gauge-arc {
+  width: 100%;
+  height: 100%;
+  border-radius: 260px 260px 0 0;
+  /* semicircle built from a conic-gradient and then masked */
+  background: conic-gradient(
+    from 180deg,
+    #2563eb 0deg 60deg,     /* GOOD – blue */
+    #facc15 60deg 120deg,   /* MODERATE – yellow */
+    #ef4444 120deg 180deg   /* UNHEALTHY – red */
+  ); /* conic gradients let colors follow the arc around a circle [web:3][web:9] */
+  mask: radial-gradient(circle at 50% 100%, transparent 60%, black 61%);
+}
+
+  .gauge-labels {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 90%;
+    transform: translate(-50%, -10%);
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    font-weight: 600;
+    color: #34425a;
+  }
+
+  .gauge-indicator {
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: #1a2dff;
+    border: 3px solid white;
+    box-shadow: 0 0 6px rgba(0,0,0,0.18);
+    left: calc(50% - 8px);
+    bottom: -8px;
+    transform-origin: 50% 130px;
+    transform: rotate(calc(-90deg + 180deg * var(--indicator-position)));
+  }
+
+  .score-title {
+    margin-top: 10px;
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: #253557;
+  }
+
+  .score-title span {
+    font-weight: 400;
+  }
+
+    .center-stack {
+    position: relative;
+    width: 100%;
+    max-width: 480px;
+    margin: 40px auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    }
+
+  /* Big text behind device */
+
+  .big-text {
+    position: absolute;
+    z-index: 0;                 /* behind the diamond */
+    font-size: 150px;            /* make it large */
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    line-height: 0.9;
+    color: #7681a5;
+    text-transform: uppercase;
+    text-align: center;
+    pointer-events: none;       /* click-through */
+    /* start from the true center… */
+    top: 50%;
+    left: 50%;
+    /* …then nudge slightly left and up */
+    transform: translate(-50%, -80%);
+    text-align: center;
+  }
+
+  /* Device */
+
+  .device-wrapper {
+    position: relative;
+    z-index: 1;                 /* above the text */
+  }
+
+  .diamond {
+    width: 140px;
+    height: 140px;
+    margin: 0 auto;
+    background: #3f7cff;
+    transform: rotate(45deg);
+    border-radius: 18px;
+    position: relative;
+    box-shadow: 0 26px 40px rgba(0,0,0,0.26);
+  }
+
+  .diamond::before {
+    /* top “logo” area */
+    content: "";
+    position: absolute;
+    top: 14px;
+    left: 50%;
+    width: 26px;
+    height: 26px;
+    transform: translateX(-50%) rotate(-45deg);
+    border-radius: 50%;
+    border: 2px solid #ffffff;
+  }
+
+  .screen {
+    position: absolute;
+    width: 88px;
+    height: 88px;
+    border-radius: 50%;
+    background: #111827;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-45deg);
+    color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+  }
+
+  .screen .line {
+    margin: 2px 0;
+    text-align: center;
+  }
+
+  .screen .label {
+    opacity: 0.85;
+  }
+
+  .screen .value {
+    font-weight: 600;
+    font-size: 12px;
+  }
+
+  .screen .unit {
+    font-size: 10px;
+    opacity: 0.75;
+  }
+
+  /* Bottom badge */
+
+  .badge {
+    margin-top: 24px;        /* distance below diamond */
+    position: relative;
+    z-index: 1;              /* also above big-text */
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 14px;
+    border-radius: 999px;
+    background: #1c3fff;
+    color: #ffffff;
+    font-size: 11px;
+    font-weight: 500;
+  }
+
+  .badge-icon {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    border: 2px solid #ffffff;
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- Gauge -->
+  <div class="gauge-wrapper">
+    <div class="gauge-arc"></div>
+    <div class="gauge-indicator"></div>
+    <div class="gauge-labels">
+      <span>GOOD</span>
+      <span>MODERATE</span>
+      <span>UNHEALTHY</span>
+    </div>
+  </div>
+
+  <div class="score-title">
+    GO IAQS <span>SCORE</span>
+  </div>
+
+  <div class="center-stack"></div>
+        <!-- Large background text -->
+        <div class="big-text">
+            COMMON IAQ LANGUAGE
+        </div>
+
+        <!-- Device -->
+        <div class="device-wrapper">
+            <div class="diamond">
+            <div class="screen">
+                <!-- CO2 line -->
+                <div class="line">
+                <span class="label">CO&#8322;</span><br/>
+                <span class="value" id="co2-value">750</span>
+                <span class="unit">ppm</span>
+                </div>
+                <!-- separator -->
+                <div class="line">—</div>
+                <!-- PM2.5 line -->
+                <div class="line">
+                <span class="label">PM&#8322;&#x002C;&#8325;</span><br/>
+                <span class="value" id="pm25-value">5</span>
+                <span class="unit">&#181;g/m&#179;</span>
+                </div>
+            </div>
+            </div>
+        </div>
+        <!-- Bottom badge -->
+        <div class="badge">
+            <div class="badge-icon"></div>
+            <span>Aligns with GO AQS</span>
+        </div>
+    </div>
+
+</div>
+
+<script>
+  // Helper functions to change indicator position and values
+
+  /**
+   * pos: 0 (GOOD, left) to 1 (UNHEALTHY, right)
+   */
+  function setIndicatorPosition(pos) {
+    pos = Math.min(1, Math.max(0, pos));
+    document.documentElement.style.setProperty("--indicator-position", pos);
+  }
+
+  function setCO2Value(value, unit) {
+    document.getElementById("co2-value").textContent = value;
+    if (unit) {
+      document.querySelector("#co2-value + .unit").textContent = unit;
+    }
+  }
+
+  function setPM25Value(value, unit) {
+    document.getElementById("pm25-value").textContent = value;
+    if (unit) {
+      document.querySelector("#pm25-value + .unit").textContent = unit;
+    }
+  }
+
+  // Example usage:
+  setIndicatorPosition(0.6);
+  setCO2Value(900, "ppm");
+  setPM25Value(12, "µg/m³");
+</script>
+
+</body>
+</html>
