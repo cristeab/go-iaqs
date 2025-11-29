@@ -11,3 +11,17 @@ The AQ system diagram is shown below:
 
 ![Air Quality System Diagram](figs/system_diagram.png)
 
+## Web Server User Interface
+
+Start the server with
+
+```bash
+    export INFLUXDB3_AUTH_TOKEN="<token>"
+    ./go_iaqs.py
+```
+
+    Access the server at: https://<server URL>:8888
+
+<p align="center">
+  <img src="figs/web_server.png" alt="Air Quality Dashboard" width="475%">
+</p>
