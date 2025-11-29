@@ -236,8 +236,6 @@
 
         // Function to set gauge position (0-180 degrees)
         function setGaugePosition(angle) {
-            if (angle < 0) angle = 0;
-            if (angle > 180) angle = 180;
             needle.style.transform = `rotate(${angle}deg)`;
         }
 
@@ -252,7 +250,7 @@
         }
 
         // Initialize with default values
-        setGaugePosition(60);
+        setGaugePosition(90);
         setCO2(750);
         setPM25(5);
 
