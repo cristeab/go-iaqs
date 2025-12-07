@@ -150,13 +150,40 @@
             width: fit-content;
             font-weight: bold;
             box-shadow: 0 5px 15px rgba(74, 122, 239, 0.4);
+            /* --- NEW GRID STYLES --- */
+            display: grid;
+            /* Define 2 columns: auto for icon, 1fr for text */
+            grid-template-columns: auto 1fr;
+            /* Define 2 rows: auto-sized by content */
+            grid-template-rows: auto auto;
+            /* Center text vertically within the badge */
+            align-items: center; 
+            /* Remove text-align: center which would center the grid content */
+            text-align: initial;
+            /* Add a gap between the icon column and text column */
+            column-gap: 8px;
         }
 
         .footer-icon {
-            font-size: 20px;
-            margin-right: 8px;
+            font-size: 30px;
+            grid-row: 1 / span 2;
+            align-self: center;
+            margin-right: 0;
         }
 
+        .footer-text-wrapper {
+            /* Ensures the wrapper is positioned in the second column (default) */
+            grid-column: 2; 
+            display: flex; /* Helps align the text within its grid cell */
+            flex-direction: column; 
+            align-items: flex-start; /* Aligns text to the left */
+        }
+
+        .footer-text-small {
+            font-size: 11px;
+            letter-spacing: normal;
+            font-weight: 300;
+        }
         .footer-text {
             font-size: 18px;
             letter-spacing: 1px;
@@ -236,7 +263,10 @@
 
         <div class="footer-badge">
             <span class="footer-icon">🌐</span>
-            <span class="footer-text">Aligns with GO AQS</span>
+            <span class="footer-text-wrapper">
+                <span class="footer-text-small">Aligns with</span>
+                <span class="footer-text">GO AQS</span>
+            </span>
         </div>
     </div>
 
