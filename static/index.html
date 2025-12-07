@@ -132,15 +132,25 @@
             transform: translate(-50%, -50%); /* Center horizontally and vertically */
             
             /* Sizing and appearance */
-            font-size: 90px; 
+            font-size: 85px; 
             font-weight: bold;
-            color: #a8b5c8; /* Greyed out color */
+            color: #7585a8; /* Greyed out color */
             letter-spacing: -2px;
-            line-height: 1.2;
+            line-height: 1;
             text-align: center;
-
             /* Stacking context: place it behind the diamond */
             z-index: 1;
+            display: inline-block;
+        }
+
+        .iaq-text-stretcher {
+            /* Apply the vertical stretch (3 times the height, 1 time the width) */
+            display: inline-block;
+            transform: scaleY(2.75); 
+            /* You might need to adjust the vertical position after stretching. */
+            /* Add a small vertical offset if the stretching causes misalignment */
+            transform-origin: center center;
+            margin-top: 10px; /* Adjust this value if the text drifts vertically */
         }
 
         .footer-badge {
@@ -247,7 +257,11 @@
             <div class="title-main">GO IAQS SCORE</div>
         </div>
 
-        <div class="iaq-language-text">COMMON IAQ<br>LANGUAGE</div>
+        <div class="iaq-language-text">
+            <span class="iaq-text-stretcher">
+                COMMON IAQ<br>LANGUAGE
+            </span>
+        </div>
 
         <div class="sensor-container">
             <div class="sensor-diamond">
