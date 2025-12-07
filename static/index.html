@@ -214,6 +214,20 @@
         <div class="gauge-container">
             <svg class="gauge-svg" viewBox="0 0 300 200">
 
+                <defs>
+                    <path id="text-path-unhealthy" fill="none" 
+                        d="M 197.5 62.73 
+                        A 95 95 0 0 1 245 145"/> 
+                    
+                    <path id="text-path-moderate" fill="none" 
+                        d="M 102.5 62.73 
+                        A 95 95 0 0 1 197.5 62.73"/>
+
+                    <path id="text-path-good" fill="none" 
+                        d="M 55 145
+                        A 95 95 0 0 1 102.5 62.73"/>
+                </defs>
+
                 <path d="M 250 145 
                         A 100 100 0 0 0 200.00 58.397"
                     fill="none" stroke="#ffb6b4" stroke-width="21"/>
@@ -240,17 +254,26 @@
                     fill="none" stroke="#4a7aef" stroke-width="64.5"/>
 
                 <!-- TEXT INSIDE EACH SEGMENT -->
-    <text x="219.28" y="105" fill="black" font-size="12" font-weight="bold" text-anchor="middle">
-        UNHEALTHY
-    </text>
+                <g fill="black" font-size="12" font-weight="bold">
+                    
+                    <text text-anchor="middle">
+                        <textPath href="#text-path-unhealthy" startOffset="50%">
+                            UNHEALTHY
+                        </textPath>
+                    </text>
 
-    <text x="150" y="65" fill="black" font-size="12" font-weight="bold" text-anchor="middle">
-        MODERATE
-    </text>
+                    <text text-anchor="middle">
+                        <textPath href="#text-path-moderate" startOffset="50%">
+                            MODERATE
+                        </textPath>
+                    </text>
 
-    <text x="80.72" y="105" fill="black" font-size="12" font-weight="bold" text-anchor="middle">
-        GOOD
-    </text>
+                    <text text-anchor="middle">
+                        <textPath href="#text-path-good" startOffset="50%">
+                            GOOD
+                        </textPath>
+                    </text>
+                </g>
 
                 <!-- Center circle -->
                 <circle cx="150" cy="145" r="15" fill="white" stroke="#333" stroke-width="3"/>
