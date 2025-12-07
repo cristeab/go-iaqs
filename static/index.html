@@ -86,11 +86,12 @@
         .sensor-diamond {
             width: 200px;
             height: 200px;
-            background: linear-gradient(135deg, #5b8fff 0%, #4a7aef 100%);
+            background: #467efd;
             transform: rotate(45deg);
-            border-radius: 20px;
+            border-radius: 0;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
             position: relative;
+            border: 2px solid #7b7b7b;
         }
 
         .sensor-inner {
@@ -108,20 +109,20 @@
         }
 
         .sensor-circle {
-            width: 120px;
-            height: 120px;
-            background: radial-gradient(circle, #2a2a2a 0%, #000000 100%);
+            width: 140px;
+            height: 140px;
+            background: #000000;
             border-radius: 50%;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             margin: 0 auto;
-            border: 3px solid #666;
+            border: 2px solid #7b7b7b;
         }
 
         .sensor-value {
-            font-size: 16px;
+            font-size: 18px;
             font-weight: bold;
             margin: 5px 0;
         }
@@ -249,10 +250,9 @@
         <div class="sensor-container">
             <div class="sensor-diamond">
                 <div class="sensor-inner">
-                    <div class="globe-icon">🌐</div>
                     <div class="sensor-circle">
                         <div class="sensor-value" id="co2-value">CO₂<br>750 ppm</div>
-                        <div style="height: 10px;"></div>
+                        <div style="height: 6px;"></div>
                         <div class="sensor-value" id="pm-value">PM₂.₅<br>5 μg/m³</div>
                     </div>
                 </div>
