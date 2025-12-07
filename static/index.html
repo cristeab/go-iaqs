@@ -66,27 +66,19 @@
             letter-spacing: 2px;
         }
 
-        .main-text {
-            text-align: center;
-            font-size: 72px;
-            font-weight: bold;
-            color: #a8b5c8;
-            letter-spacing: -2px;
-            line-height: 1;
-            margin: 20px 0;
-        }
-
         .sensor-container {
-            position: relative;
+            position: relative; 
             width: 200px;
             height: 200px;
             margin: 40px auto;
+            /* Stacking context: make sure it is in front of z-index: 1 */
+            z-index: 2;
         }
 
         .sensor-diamond {
             width: 200px;
             height: 200px;
-            background: #467efd;
+            background: #4a7aef;
             transform: rotate(45deg);
             border-radius: 0;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
@@ -132,13 +124,23 @@
             opacity: 0.9;
         }
 
-        .subtitle {
-            text-align: center;
-            font-size: 64px;
+        .iaq-language-text {
+            /* Positioning relative to the .container parent */
+            position: absolute; 
+            top: 60%; /* Adjust vertical placement to roughly align with the diamond */
+            left: 50%;
+            transform: translate(-50%, -50%); /* Center horizontally and vertically */
+            
+            /* Sizing and appearance */
+            font-size: 90px; 
             font-weight: bold;
-            color: #a8b5c8;
-            letter-spacing: -1px;
-            margin: 20px 0;
+            color: #a8b5c8; /* Greyed out color */
+            letter-spacing: -2px;
+            line-height: 1.2;
+            text-align: center;
+
+            /* Stacking context: place it behind the diamond */
+            z-index: 1;
         }
 
         .footer-badge {
@@ -245,7 +247,7 @@
             <div class="title-main">GO IAQS SCORE</div>
         </div>
 
-        <div class="main-text">COMMON IAQ</div>
+        <div class="iaq-language-text">COMMON IAQ<br>LANGUAGE</div>
 
         <div class="sensor-container">
             <div class="sensor-diamond">
@@ -258,8 +260,6 @@
                 </div>
             </div>
         </div>
-
-        <div class="subtitle">LANGUAGE</div>
 
         <div class="footer-badge">
             <span class="footer-icon">🌐</span>
