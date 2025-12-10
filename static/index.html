@@ -158,7 +158,7 @@
         .footer-badge {
             background: #4a7aef;
             border-radius: 10px;
-            margin: 100px auto 0;
+            margin: 30px auto 0;   /* moved closer to Radon card */
             width: fit-content;
             box-shadow: 0 5px 15px rgba(74, 122, 239, 0.4);
             z-index: 2;
@@ -171,6 +171,59 @@
             margin: 0 auto;
         }
 
+        .pollutant-section {
+            margin: 20px auto 40px;
+            text-align: center;
+            z-index: 2;
+            position: relative;
+        }
+
+        .pollutant-grid {
+            display: grid;
+            grid-template-columns: repeat(2, auto);
+            justify-content: center;   /* center the 2‑column grid */
+            gap: 15px;
+            margin: 0 auto;
+        }
+
+        .pollutant-card {
+            background: #f4f6ff;
+            border: 1px solid #d1d8f5;
+            border-radius: 12px;
+            padding: 12px 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            width: 70px;          /* fixed width */
+            height: 70px;         /* fixed height for perfect square cards */
+            display: flex;         /* center content vertically */
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .pollutant-card.radon {
+            grid-column: 1 / span 2;   /* place on its own row */
+            justify-self: center;      /* center horizontally */
+        }
+
+        .pollutant-name {
+            font-size: 14px;
+            font-weight: bold;
+            color: #4a7aef;
+            margin-bottom: 4px;
+        }
+
+        .pollutant-value {
+            font-size: 16px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        @media (max-width: 480px) {
+            .pollutant-grid {
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
 </head>
 <body>
@@ -273,6 +326,36 @@
             </div>
         </div>
 
+        <div class="pollutant-section">
+
+            <div class="pollutant-grid">
+                <div class="pollutant-card co">
+                    <div class="pollutant-name">CO</div>
+                    <div class="pollutant-value" id="co-value">–</div>
+                </div>
+
+                <div class="pollutant-card ch2o">
+                    <div class="pollutant-name">CH₂O</div>
+                    <div class="pollutant-value" id="ch2o-value">–</div>
+                </div>
+
+                <div class="pollutant-card no2">
+                    <div class="pollutant-name">NO₂</div>
+                    <div class="pollutant-value" id="no2-value">–</div>
+                </div>
+
+                <div class="pollutant-card o3">
+                    <div class="pollutant-name">O₃</div>
+                    <div class="pollutant-value" id="o3-value">–</div>
+                </div>
+
+                <div class="pollutant-card radon">
+                    <div class="pollutant-name">Radon</div>
+                    <div class="pollutant-value" id="radon-value">–</div>
+                </div>
+            </div>
+        </div>
+
         <div class="footer-badge">
             <img src="static/assets/go-aqs-logo.svg" alt="GO AQS" class="footer-logo">
         </div>
@@ -282,6 +365,23 @@
         const needle = document.getElementById('needle');
         const co2Display = document.getElementById('co2-value');
         const pmDisplay = document.getElementById('pm-value');
+
+        // Functions for new pollutants
+        function setCO(value) {
+            document.getElementById('co-value').textContent = value;
+        }
+        function setCH2O(value) {
+            document.getElementById('ch2o-value').textContent = value;
+        }
+        function setNO2(value) {
+            document.getElementById('no2-value').textContent = value;
+        }
+        function setO3(value) {
+            document.getElementById('o3-value').textContent = value;
+        }
+        function setRadon(value) {
+            document.getElementById('radon-value').textContent = value;
+        }
 
         // Function to set gauge position (0-180 degrees)
         function setGaugePosition(angle) {
@@ -302,6 +402,11 @@
         setGaugePosition(-50);
         setCO2(750);
         setPM25(5);
+        setCO("–");
+        setCH2O("–");
+        setNO2("–");
+        setO3("–");
+        setRadon("–");
 
         // Example usage - uncomment and modify to test:
         // setTimeout(() => setGaugePosition(120), 2000);
